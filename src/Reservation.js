@@ -33,6 +33,7 @@ export default function Reservation() {
                 ...this.state,
                 adult: 0,
                 children: 0,
+                isDiff: false,
             });
         },
     });

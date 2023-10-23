@@ -18,6 +18,7 @@ export default function PersonalsButton({
         const { adult, children, isDiff } = this.state;
         this.$adult.children[adult].classList.add('toggle');
         this.$children.children[children].classList.add('toggle');
+        this.$isDiff.checked = isDiff;
         if (
             adult + children === 0 ||
             adult >= 4 ||
@@ -31,6 +32,7 @@ export default function PersonalsButton({
         if (adult + children >= 4 && isDiff === true) {
             this.$adult.children[adult].classList.remove('toggle');
             this.$children.children[children].classList.remove('toggle');
+
             onCheck();
         }
     };
@@ -51,8 +53,8 @@ export default function PersonalsButton({
     });
 
     this.$isDiff.addEventListener('click', (e) => {
-        const btn = e.target.closest('#checkHandicap');
-        if (!btn) return;
+        const handicap = e.target.closest('#checkHandicap');
+        if (!handicap) return;
         onToggle();
     });
 }
