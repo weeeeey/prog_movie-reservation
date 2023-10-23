@@ -1,6 +1,7 @@
 import PersonalsButton from './PersonalsButton.js';
 import Reselect from './Reselect.js';
 import ReservationInfo from './ReservationInfo.js';
+import Seat from './Seat.js';
 
 export default function Reservation() {
     this.state = {
@@ -39,6 +40,10 @@ export default function Reservation() {
     const reservationInfo = new ReservationInfo({
         initialState: this.state,
     });
+
+    const seats = new Seat({
+        initialState: this.state,
+    });
     new Reselect({
         handleReselect: () => {
             this.setState({
@@ -54,5 +59,6 @@ export default function Reservation() {
         this.state = nextState;
         personalsButton.setState(this.state);
         reservationInfo.setState(this.state);
+        seats.setState(this.state);
     };
 }
