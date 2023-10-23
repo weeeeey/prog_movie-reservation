@@ -1,4 +1,9 @@
-export default function PersonalsButton({ initialState, onClick, onToggle }) {
+export default function PersonalsButton({
+    initialState,
+    onClick,
+    onToggle,
+    onCheck,
+}) {
     this.state = initialState; //{adult,children,isDiff}
     this.$adult = document.querySelector('#adultBtn');
     this.$children = document.querySelector('#youthBtn');
@@ -10,7 +15,7 @@ export default function PersonalsButton({ initialState, onClick, onToggle }) {
     };
 
     this.render = () => {
-        const { adult, children } = this.state;
+        const { adult, children, isDiff } = this.state;
         this.$adult.children[adult].classList.add('toggle');
         this.$children.children[children].classList.add('toggle');
         if (
@@ -22,6 +27,11 @@ export default function PersonalsButton({ initialState, onClick, onToggle }) {
             this.$isDiff.setAttribute('disabled', true);
         } else {
             this.$isDiff.removeAttribute('disabled');
+        }
+        if (adult + children >= 4 && isDiff === true) {
+            this.$adult.children[adult].classList.remove('toggle');
+            this.$children.children[children].classList.remove('toggle');
+            onCheck();
         }
     };
     this.render();
