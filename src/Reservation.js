@@ -48,8 +48,15 @@ export default function Reservation() {
         onInit: ($target) => {
             if (this.state.adult + this.state.children !== 0) {
                 $target.forEach((node, index) => {
-                    if (this.state.isDiff && parseInt(index / 13) === 2) {
-                        node.classList.remove('disabled');
+                    if (this.state.isDiff) {
+                        if (
+                            parseInt(index / 13) === 2 &&
+                            [36, 37, 38].includes(index)
+                        ) {
+                            node.classList.remove('disabled');
+                        } else {
+                            node.classList.add('disabled');
+                        }
                     } else {
                         node.classList.remove('disabled');
                     }
@@ -70,6 +77,22 @@ export default function Reservation() {
                 }
             });
         },
+        handleRestSeats: ($target) => {
+            if (this.state.selectSeats.length === 0) return;
+            const pivotRow = parseInt(this.state.selectSeats[0] / 13);
+            $target.forEach((node, idx) => {
+                this.row = parseInt(idx / 13);
+                if (pivotRow !== 2) {
+                    if (this.row === 2) {
+                        node.classList.add('disabled');
+                    }
+                } else {
+                    if (this.row !== 2 || [36, 37, 38].includes(idx)) {
+                        node.classList.add('disabled');
+                    }
+                }
+            });
+        },
         handleFullSeats: ($target) => {
             $target.forEach((node, idx) => {
                 if (!this.state.selectSeats.includes(idx)) {
@@ -77,16 +100,11 @@ export default function Reservation() {
                 }
             });
         },
-        handleHandicap: () => {
-            this.setState({
-                ...this.state,
-                isDiff: false,
-            });
-            const $handicap = document.querySelector('#checkHandicap');
-            $handicap.checked = false;
-            $handicap.setAttribute('disabled', true);
-        },
+
         resetState: () => {
+            window.alert(
+                '선택하신 좌석을 모두 취소하고 다시 선택하시겠습니까?'
+            );
             this.setState({
                 adult: 0,
                 children: 0,
