@@ -15,7 +15,7 @@ export default function PersonalsButton({
     };
 
     this.render = () => {
-        const { adult, children, isDiff } = this.state;
+        const { adult, children, isDiff, selectSeats } = this.state;
         this.$adult.children[adult].classList.add('toggle');
         this.$children.children[children].classList.add('toggle');
         this.$isDiff.checked = isDiff;
@@ -29,6 +29,14 @@ export default function PersonalsButton({
         } else {
             this.$isDiff.removeAttribute('disabled');
         }
+        const handiSeat = [36, 37, 38];
+        for (let i = 0; i < selectSeats.length; i++) {
+            if (!handiSeat.includes(i)) {
+                this.$isDiff.setAttribute('disabled', true);
+                break;
+            }
+        }
+
         if (adult + children >= 4 && isDiff === true) {
             this.$adult.children[adult].classList.remove('toggle');
             this.$children.children[children].classList.remove('toggle');

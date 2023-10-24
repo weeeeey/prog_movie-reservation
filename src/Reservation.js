@@ -50,6 +50,8 @@ export default function Reservation() {
                 $target.forEach((node, index) => {
                     if (this.state.isDiff && parseInt(index / 13) === 2) {
                         node.classList.remove('disabled');
+                    } else {
+                        node.classList.remove('disabled');
                     }
                     node.id = index;
                 });
@@ -82,9 +84,16 @@ export default function Reservation() {
             });
             const $handicap = document.querySelector('#checkHandicap');
             $handicap.checked = false;
-            console.log($handicap.attributes);
             $handicap.setAttribute('disabled', true);
-            console.log($handicap.attributes);
+        },
+        resetState: () => {
+            this.setState({
+                adult: 0,
+                children: 0,
+                isDiff: false,
+                remainSeatCnt: 39,
+                selectSeats: [],
+            });
         },
         addSeats: (num) => {
             this.setState({

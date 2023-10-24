@@ -3,7 +3,7 @@ export default function Seat({
     onInit,
     onSelectedSeats,
     handleFullSeats,
-
+    resetState,
     handleHandicap,
     onClick,
     addSeats,
@@ -22,6 +22,21 @@ export default function Seat({
 
         onInit(this.$seats);
         onSelectedSeats(this.$seats);
+        if (adult + children < selectSeats.length) {
+            window.alert(
+                '선택하신 좌석을 모두 취소하고 다시 선택하시겠습니까?'
+            );
+            resetState();
+        }
+        if (
+            !isDiff &&
+            selectSeats.some((seatId) => [36, 37, 38].includes(seatId))
+        ) {
+            window.alert(
+                '선택하신 좌석을 모두 취소하고 다시 선택하시겠습니까?'
+            );
+            resetState();
+        }
         if (adult + children === selectSeats.length) {
             handleFullSeats(this.$seats);
         }
@@ -32,8 +47,14 @@ export default function Seat({
     this.$target.addEventListener('click', (e) => {
         const clickedSeatBtn = e.target.closest('.seat');
         if (!clickedSeatBtn) return;
-
-        if (clickedSeatBtn.classList.contains('clicked')) {
+        if (
+            !this.state.isDiff &&
+            [36, 37, 38].includes(parseInt(clickedSeatBtn.id))
+        ) {
+            window.alert(
+                '선택하신 좌석은 장애인석으로 일반고객은 예매할 수 없는 좌석입니다.'
+            );
+        } else if (clickedSeatBtn.classList.contains('clicked')) {
             minusSeats(clickedSeatBtn.id);
         } else {
             addSeats(clickedSeatBtn.id);
