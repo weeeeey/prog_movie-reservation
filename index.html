@@ -14,6 +14,32 @@
             <button class="gnb gnb_r" id="theaterBtn">좌석예매</button>
         </header>
         <main>
+            <div class="section section-login" id="loginSection">
+                <div class="content">
+                    <header>
+                        <div>Login Form</div>
+                    </header>
+                    <section>
+                        <div class="input-group">
+                            <input
+                                type="email"
+                                placeholder="이메일을 입력해주세요."
+                                id="email"
+                            />
+                        </div>
+                        <div class="input-group">
+                            <input
+                                type="password"
+                                placeholder="비밀번호를 입력해주세요."
+                                id="password"
+                            />
+                        </div>
+                        <div class="input-group">
+                            <button id="theaterLoginBtn">Login</button>
+                        </div>
+                    </section>
+                </div>
+            </div>
             <div class="section section-theater" id="theaterSection">
                 <div class="col-head" id="theaterSectionHead">인원/좌석</div>
                 <div class="col-body">
@@ -99,10 +125,22 @@
         </main>
         <script>
             // 본 파일은 절대로 수정하지 않습니다.
+            let loginBtn = document.getElementById('loginBtn');
+            let theaterBtn = document.getElementById('theaterBtn');
+            let theaterLoginBtn = document.getElementById('theaterLoginBtn');
 
+            let loginSection = document.getElementById('loginSection');
             let theaterSection = document.getElementById('theaterSection');
 
-            theaterSection.style.display = 'block';
+            loginBtn.addEventListener('click', () => {
+                theaterSection.style.display = 'none';
+                loginSection.style.display = 'block';
+            });
+
+            theaterBtn.addEventListener('click', () => {
+                loginSection.style.display = 'none';
+                theaterSection.style.display = 'block';
+            });
 
             for (let i = 0; i < 39; i++) {
                 const seatBtn = document.createElement('button');
