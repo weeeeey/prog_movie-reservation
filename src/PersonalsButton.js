@@ -1,4 +1,5 @@
 export default function PersonalsButton({
+    onInit,
     initialState,
     onClick,
     onToggle,
@@ -16,6 +17,9 @@ export default function PersonalsButton({
 
     this.render = () => {
         const { adult, children, isDiff, selectSeats } = this.state;
+        onInit(this.$adult);
+        onInit(this.$children);
+
         this.$adult.children[adult].classList.add('toggle');
         this.$children.children[children].classList.add('toggle');
         this.$isDiff.checked = isDiff;

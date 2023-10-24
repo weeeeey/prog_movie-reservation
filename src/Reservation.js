@@ -14,6 +14,11 @@ export default function Reservation() {
 
     const personalsButton = new PersonalsButton({
         initialState: this.state,
+        onInit: ($target) => {
+            Array.from($target.children).forEach((node) => {
+                node.classList.remove('toggle');
+            });
+        },
         onClick: (num, person) => {
             this.setState({
                 ...this.state,
@@ -87,7 +92,11 @@ export default function Reservation() {
                         node.classList.add('disabled');
                     }
                 } else {
-                    if (this.row !== 2 || [36, 37, 38].includes(idx)) {
+                    if (this.row !== 2) {
+                        node.classList.add('disabled');
+                        return;
+                    }
+                    if (!this.state.isDiff && [36, 37, 38].includes(idx)) {
                         node.classList.add('disabled');
                     }
                 }

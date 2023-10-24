@@ -52,6 +52,7 @@ export default function Seat({
         }
         if (
             parseInt(clickedSeatBtn.id / 13) === 2 &&
+            ![36, 37, 38].includes(parseInt(clickedSeatBtn.id)) &&
             (this.state.adult + this.state.children) % 2 !== 0
         ) {
             window.alert(
