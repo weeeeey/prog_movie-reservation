@@ -42,6 +42,7 @@ export default function PersonalsButton({
         const btn = e.target.closest('.--general');
         if (!btn) return;
         this.$adult.children[this.state.adult].classList.remove('toggle');
+
         onClick(parseInt(btn.innerHTML), 'adult');
     });
 

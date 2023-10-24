@@ -9,9 +9,12 @@ export default function ReservationInfo({ initialState }) {
     };
 
     this.render = () => {
-        const { remainSeatCnt, adult, children } = this.state;
+        const { remainSeatCnt, adult, children, selectSeats } = this.state;
+        const discount = parseInt(selectSeats[0] / 13) === 2 ? 0.8 : 1;
         this.$seat.innerHTML = `${remainSeatCnt - adult - children}`;
-        this.$amount.innerHTML = `${adult * 10_000 + children * 7_000}`;
+        this.$amount.innerHTML = `${
+            (adult * 10_000 + children * 7_000) * discount
+        }`;
     };
     this.render();
 }

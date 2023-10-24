@@ -9,6 +9,7 @@ export default function Reservation() {
         children: 0,
         isDiff: false,
         remainSeatCnt: 39,
+        selectSeats: [],
     };
 
     const personalsButton = new PersonalsButton({
@@ -44,6 +45,61 @@ export default function Reservation() {
 
     const seats = new Seat({
         initialState: this.state,
+        onInit: ($target) => {
+            if (this.state.adult + this.state.children !== 0) {
+                $target.forEach((node, index) => {
+                    if (this.state.isDiff && parseInt(index / 13) === 2) {
+                        node.classList.remove('disabled');
+                    }
+                    node.id = index;
+                });
+            } else {
+                $target.forEach((node) => {
+                    node.classList.add('disabled');
+                });
+            }
+        },
+        onSelectedSeats: ($target) => {
+            $target.forEach((node, idx) => {
+                if (this.state.selectSeats.includes(idx)) {
+                    node.classList.add('clicked');
+                } else {
+                    node.classList.remove('clicked');
+                }
+            });
+        },
+        handleFullSeats: ($target) => {
+            $target.forEach((node, idx) => {
+                if (!this.state.selectSeats.includes(idx)) {
+                    node.classList.add('disabled');
+                }
+            });
+        },
+        handleHandicap: () => {
+            this.setState({
+                ...this.state,
+                isDiff: false,
+            });
+            const $handicap = document.querySelector('#checkHandicap');
+            $handicap.checked = false;
+            console.log($handicap.attributes);
+            $handicap.setAttribute('disabled', true);
+            console.log($handicap.attributes);
+        },
+        addSeats: (num) => {
+            this.setState({
+                ...this.state,
+                selectSeats: [...this.state.selectSeats, parseInt(num)],
+            });
+        },
+        minusSeats: (num) => {
+            this.setState({
+                ...this.state,
+                selectSeats: this.state.selectSeats.filter(
+                    (seat) => seat !== parseInt(num)
+                ),
+            });
+        },
     });
     new Reselect({
         handleReselect: () => {
@@ -52,6 +108,7 @@ export default function Reservation() {
                 children: 0,
                 isDiff: false,
                 remainSeatCnt: 39,
+                selectSeats: [],
             });
         },
     });
