@@ -11,10 +11,17 @@ export default function ReservationInfo({ initialState }) {
     this.render = () => {
         const { remainSeatCnt, adult, children, selectSeats } = this.state;
         const discount = parseInt(selectSeats[0] / 13) === 2 ? 0.8 : 1;
-        this.$seat.innerHTML = `${remainSeatCnt - adult - children}`;
-        this.$amount.innerHTML = `${
-            (adult * 10_000 + children * 7_000) * discount
-        }`;
+        this.$seat.innerHTML = `${remainSeatCnt - selectSeats.length}`;
+        if (adult >= selectSeats.length) {
+            this.$amount.innerHTML = `${
+                selectSeats.length * 10_000 * discount
+            }`;
+        } else {
+            this.$amount.innerHTML = `${
+                (adult * 10_000 + (selectSeats.length - adult) * 7_000) *
+                discount
+            }`;
+        }
     };
     this.render();
 }
