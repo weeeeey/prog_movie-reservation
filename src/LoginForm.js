@@ -4,10 +4,10 @@ export default function LoginForm({ handleForm }) {
     this.$target.addEventListener('click', (e) => {
         const button = e.target.closest('#theaterLoginBtn');
         if (!button) return;
-        const regEmail =
-            /^(?=.*[A-Za-z])(?=.*\d)(?=.*[.]).{4,}@[A-Za-z\d.]{4,}\.co$/;
+        const regEmail = /^[a-zA-Z0-9\.]+@[a-z0-9-_\.]+\.co$/;
+
         const regPassword =
-            /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@~])[A-Za-z\d!@~]{8,20}$/;
+            /^(?=.*[a-zA-Z])(?=.*[!@~])(?=.*[0-9])[a-zA-Z0-9!@~]{8,20}$/;
 
         const $email = document.querySelector('#email');
         const $password = document.querySelector('#password');
